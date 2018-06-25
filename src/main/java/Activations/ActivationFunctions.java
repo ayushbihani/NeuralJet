@@ -12,4 +12,9 @@ public interface ActivationFunctions {
      * @return Returns the activation value
      * */
     float activate(float value);
+    /**
+     * @param value :Input Value
+     * @return Returns derivative
+     * */
+    float derivative(float value);
 }
