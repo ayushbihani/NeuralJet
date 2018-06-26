@@ -25,7 +25,7 @@ public class NeuronLayer {
         this.noOfNeurons = noOfNeurons;
     }
 
-    public boolean isInputLayer() {
+    public boolean getInputLayer() {
         return inputLayer;
     }
 

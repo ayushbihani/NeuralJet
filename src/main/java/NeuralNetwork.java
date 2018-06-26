@@ -14,12 +14,17 @@ public class NeuralNetwork {
     private ActivationFunctions functions;
 
 
-    public  NeuralNetwork(float[][] input, float[][] output)throws ZeroNeuronException {
+    public  NeuralNetwork(float[][] input, float[][] output)throws ZeroNeuronException, IllegalArgumentException {
         this.input = input;
         this.output = output;
         if(this.input[0].length == 0 || this.output[0].length == 0){
             throw new ZeroNeuronException("Input cannot have 0 features");
         }
+
+        if(this.input.length != this.output.length){
+            throw new IllegalArgumentException("Input vector length and output Vector length must be the same");
+        }
+
         inputNeurons = this.input[0].length;
         outputNeurons = this.output[0].length;
         init();
@@ -81,6 +86,18 @@ public class NeuralNetwork {
         layer1.setBias(bias);
         layer1.setWeights(weights);
         layer1.setOutputWeights(outputWeights);
+    }
+
+    public void propogate(){
+        NeuronLayer temp = inputLayer;
+        ForwardPropogation forwardPropogation = new ForwardPropogation(this.inputLayer, this.outputLayer);
+        if(temp.getInputLayer()){
+            for(int i = 0; i < input[0].length; i++){
+                float[] in_ = input[i];
+                float[] out_ = output[i];
+                forwardPropogation.calculateOutput(in_,out_);
+            }
+        }
     }
 
     public void setActivation(ActivationFunctions functions){
